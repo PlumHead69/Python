@@ -134,7 +134,7 @@ quit()
 
 #valtoztatas
 
-
+#fasz
 
 
 
