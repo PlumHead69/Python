@@ -132,7 +132,7 @@ pygame.quit()
 quit()
 
 
-
+#valtoztatas
 
 
 
