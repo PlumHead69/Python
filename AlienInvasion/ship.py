@@ -3,7 +3,7 @@ import pygame
 WHITE = (255, 255, 255)
 
 
-class Car(pygame.sprite.Sprite):
+class Ship(pygame.sprite.Sprite):
 
     def __init__(self):
 
@@ -11,9 +11,7 @@ class Car(pygame.sprite.Sprite):
 
         self.image = pygame.image.load("spaceship.png").convert_alpha()
         self.image = pygame.transform.scale(self.image, (100, 100))
-        self.image.set_colorkey(WHITE)
         self.mask = pygame.mask.from_surface(self.image)
-
         self.rect = self.image.get_rect()
 
     def moveRight(self, pixels):

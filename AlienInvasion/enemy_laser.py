@@ -12,7 +12,6 @@ class Enemy_Laser(pygame.sprite.Sprite):
         self.image = pygame.image.load("enemy_laser.png").convert_alpha()
         self.image = pygame.transform.scale(self.image, (40, 20))
         self.image = pygame.transform.rotate(self.image, 90)
-        self.image.set_colorkey(WHITE)
         self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
 

@@ -2,7 +2,7 @@ import math
 from enemy_laser import Enemy_Laser
 from laser import Laser
 from alien import Alien
-from car import Car
+from ship import Ship
 import pygame
 import random
 rng = random.Random()
@@ -38,7 +38,7 @@ laser = Laser()
 bullets_group = pygame.sprite.Group()
 random_alien_list = []
 
-playerShip = Car()
+playerShip = Ship()
 playerShip.rect.x = 390
 playerShip.rect.y = SCREENHEIGHT - 100
 
@@ -116,14 +116,14 @@ while carryOn:
         bullets_group.add(laser)
 
     hit_collision = pygame.sprite.spritecollide(
-        laser, aliens_sprites_list, False)
+        laser, aliens_sprites_list, False,pygame.sprite.collide_mask)
     for alien_hitted in hit_collision:
         i += 1
         aliens_sprites_list.remove(alien_hitted)
         random_alien_list.remove(alien_hitted)
 
     ship_collision = pygame.sprite.spritecollide(
-        e_laser, ship_sprites_list, False)
+        e_laser, ship_sprites_list, False,pygame.sprite.collide_mask)
     for alien_hitted in ship_collision:
         carryOn = False
 
@@ -144,7 +144,7 @@ while carryOn:
     bullets_group.draw(screen)
     bullets_group.update()
     aliens_sprites_list.draw(screen)
-    aliens_sprites_list.update()
+    #aliens_sprites_list.update()
 
     pygame.display.flip()
 

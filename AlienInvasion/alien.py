@@ -12,7 +12,6 @@ class Alien(pygame.sprite.Sprite):
 
         self.image = pygame.image.load("alien.png").convert_alpha()
         self.image = pygame.transform.scale(self.image, (80, 80))
-        self.image.set_colorkey(WHITE)
         self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
 
