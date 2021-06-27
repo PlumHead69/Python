@@ -103,7 +103,7 @@ while carryOn:
         playerShip.moveRight(5)
 
     if len(random_alien_list) == 0:
-
+        
         carryOn = False
     elif e_laser.off() == True and only_1_alien == "okés":
         e_laser.rect.x = rng.choice(random_alien_list).rect.x+45
@@ -144,7 +144,7 @@ while carryOn:
     bullets_group.draw(screen)
     bullets_group.update()
     aliens_sprites_list.draw(screen)
-    #aliens_sprites_list.update()
+    aliens_sprites_list.update()
 
     pygame.display.flip()
 
