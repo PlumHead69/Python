@@ -18,6 +18,7 @@ TIMEOUT = 1
 
 global_body_list = []
 
+
 class Snake(object):
     REV_DIR_MAP = {
         KEY_UP: KEY_DOWN, KEY_DOWN: KEY_UP,
@@ -27,13 +28,13 @@ class Snake(object):
     def __init__(self, x, y, window):
         self.hit_score = 0
         self.timeout = TIMEOUT
-        self.body_list=[]
+        self.body_list = []
 
         global_body_list.append(Body(x, y))
         self.body_list.append(Body(x, y))
-        self.window = window    
+        self.window = window
         self.direction = KEY_RIGHT
-        
+
         self.direction_map = {
             KEY_UP: self.move_up,
             KEY_DOWN: self.move_down,
@@ -60,7 +61,7 @@ class Snake(object):
 
     @property
     def obstacle(self):
-        if self.head.y <= 1 and self.direction== KEY_UP:
+        if self.head.y <= 1 and self.direction == KEY_UP:
             return True
 
         if self.head.y >= MAX_Y and self.direction == KEY_DOWN:
@@ -74,30 +75,28 @@ class Snake(object):
 
         return any([body.coor == self.ahead()
                     for body in global_body_list[:-1]])
-    
+
     def ahead(self):
-        if self.direction==KEY_RIGHT:
-            ahead_coor = self.head.x+1,self.head.y
+        if self.direction == KEY_RIGHT:
+            ahead_coor = self.head.x+1, self.head.y
             return ahead_coor
 
-        if self.direction==KEY_LEFT:
-            ahead_coor= self.head.x-1,self.head.y
+        if self.direction == KEY_LEFT:
+            ahead_coor = self.head.x-1, self.head.y
             return ahead_coor
 
-        if self.direction== KEY_DOWN:
-            ahead_coor = self.head.x,self.head.y+1
+        if self.direction == KEY_DOWN:
+            ahead_coor = self.head.x, self.head.y+1
             return ahead_coor
 
-        if self.direction== KEY_UP:
-            ahead_coor= self.head.x,self.head.y-1
-            return ahead_coor     
-
+        if self.direction == KEY_UP:
+            ahead_coor = self.head.x, self.head.y-1
+            return ahead_coor
 
     def update(self):
         global_body_list.append(Body(self.head.x, self.head.y))
         self.body_list.append(Body(self.head.x, self.head.y))
         self.direction_map[self.direction]()
-       
 
     def change_direction(self, direction):
         self.direction = direction
@@ -105,6 +104,18 @@ class Snake(object):
     def render(self):
         for body in self.body_list:
             self.window.addstr(body.y, body.x, body.char)
+    def set_dir(snake):
+        if snake.obstacle == True:
+            if snake.direction == KEY_DOWN or snake.direction == KEY_UP:
+                snake.change_direction(KEY_RIGHT)
+
+                if snake.obstacle == True:
+                    snake.change_direction(KEY_LEFT)
+            elif snake.direction == KEY_LEFT or snake.direction == KEY_RIGHT:
+                snake.change_direction(KEY_UP)
+
+                if snake.obstacle == True:
+                    snake.change_direction(KEY_DOWN)
 
     @property
     def head(self):
@@ -116,19 +127,16 @@ class Snake(object):
 
     def move_up(self):
         self.head.y -= 1
-        
 
     def move_down(self):
         self.head.y += 1
-        
 
     def move_left(self):
         self.head.x -= 1
-        
 
     def move_right(self):
         self.head.x += 1
-        
+
 
 class Body(object):
     def __init__(self, x, y, char='#'):
@@ -151,25 +159,24 @@ if __name__ == '__main__':
     curses.noecho()
     curses.curs_set(0)
     window.border(0)
-    
+
     snake = Snake(SNAKE_X, SNAKE_Y, window)
-    snake_bot1=Snake(SNAKEBOT_X,SNAKEBOT_Y,window)
-    snake_bot2=Snake(12,4,window)
-    snake_bot3=Snake(20,20,window)
-    
-    
+    snake_bot1 = Snake(SNAKEBOT_X, SNAKEBOT_Y, window)
+    snake_bot2 = Snake(12, 4, window)
+    snake_bot3 = Snake(20, 20, window)
+
     while True:
         window.clear()
         window.border(0)
         snake.render()
-        
+
         snake_bot1.render()
-        
+
         snake_bot2.render()
-        
+
         snake_bot3.render()
 
-        rDirection= random.choice([KEY_UP, KEY_LEFT,KEY_DOWN, KEY_RIGHT])
+        rDirection = random.choice([KEY_UP, KEY_LEFT, KEY_DOWN, KEY_RIGHT])
         event = window.getch()
 
         if event == 27:
@@ -183,41 +190,9 @@ if __name__ == '__main__':
             while key != 32:
                 key = window.getch()
 
-        if snake_bot1.obstacle == True:
-            if snake_bot1.direction== KEY_DOWN or snake_bot1.direction == KEY_UP:
-                snake_bot1.change_direction(KEY_RIGHT)
-                
-                if snake_bot1.obstacle == True:
-                    snake_bot1.change_direction(KEY_LEFT)
-            elif snake_bot1.direction== KEY_LEFT or snake_bot1.direction == KEY_RIGHT:
-                snake_bot1.change_direction(KEY_UP)
-                
-                if snake_bot1.obstacle == True:
-                    snake_bot1.change_direction(KEY_DOWN)
-
-        if snake_bot2.obstacle == True:
-            if snake_bot2.direction== KEY_DOWN or snake_bot2.direction == KEY_UP:
-                snake_bot2.change_direction(KEY_RIGHT)
-                
-                if snake_bot2.obstacle == True:
-                    snake_bot2.change_direction(KEY_LEFT)
-            elif snake_bot2.direction== KEY_LEFT or snake_bot2.direction == KEY_RIGHT:
-                snake_bot2.change_direction(KEY_UP)
-                
-                if snake_bot2.obstacle == True:
-                    snake_bot2.change_direction(KEY_DOWN)
-
-        if snake_bot3.obstacle == True:
-            if snake_bot3.direction== KEY_DOWN or snake_bot3.direction == KEY_UP:
-                snake_bot3.change_direction(KEY_RIGHT)
-                
-                if snake_bot3.obstacle == True:
-                    snake_bot3.change_direction(KEY_LEFT)
-            elif snake_bot3.direction== KEY_LEFT or snake_bot3.direction == KEY_RIGHT:
-                snake_bot3.change_direction(KEY_UP)
-                
-                if snake_bot3.obstacle == True:
-                    snake_bot3.change_direction(KEY_DOWN)
+        snake_bot1.set_dir()
+        snake_bot2.set_dir()
+        snake_bot3.set_dir()
 
         snake.update()
         snake_bot1.update()
@@ -226,7 +201,7 @@ if __name__ == '__main__':
         if snake.collided:
             break
         if snake_bot1.collided:
-           break
+            break
         if snake_bot2.collided:
             break
         if snake_bot3.collided:
