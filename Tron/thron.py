@@ -162,19 +162,16 @@ if __name__ == '__main__':
 
     snake = Snake(SNAKE_X, SNAKE_Y, window)
     snake_bot1 = Snake(SNAKEBOT_X, SNAKEBOT_Y, window)
-    snake_bot2 = Snake(12, 4, window)
-    snake_bot3 = Snake(20, 20, window)
+    #snake_bot2 = Snake(12, 4, window)
+    #snake_bot3 = Snake(20, 20, window)
 
     while True:
         window.clear()
         window.border(0)
         snake.render()
-
         snake_bot1.render()
-
-        snake_bot2.render()
-
-        snake_bot3.render()
+        #snake_bot2.render()
+        #snake_bot3.render()
 
         rDirection = random.choice([KEY_UP, KEY_LEFT, KEY_DOWN, KEY_RIGHT])
         event = window.getch()
@@ -191,21 +188,21 @@ if __name__ == '__main__':
                 key = window.getch()
 
         snake_bot1.set_dir()
-        snake_bot2.set_dir()
-        snake_bot3.set_dir()
+        #snake_bot2.set_dir()
+        #snake_bot3.set_dir()
 
         snake.update()
         snake_bot1.update()
-        snake_bot2.update()
-        snake_bot3.update()
+        #snake_bot2.update()
+        #snake_bot3.update()
         if snake.collided:
             break
         if snake_bot1.collided:
             break
-        if snake_bot2.collided:
+        """if snake_bot2.collided:
             break
         if snake_bot3.collided:
-            break
+            break"""
 
 
 curses.endwin()
