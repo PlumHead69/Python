@@ -6,12 +6,11 @@ WHITE = (255, 255, 255)
 class Paddle(p.sprite.Sprite):
 
     def __init__(self):
-
         super().__init__()
 
         
-        image = p.image.load('rect.png')
-        image = p.transform.scale(image, (40, 20))
+        self.image = p.image.load("rect.png").convert_alpha()
+        self.image = p.transform.scale(self.image, (40, 70))
         self.mask = p.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
 
